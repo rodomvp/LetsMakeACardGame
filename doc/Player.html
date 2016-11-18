@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Player - RDoc Documentation</title>
+
+<link href="./fonts.css" rel="stylesheet">
+<link href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/navigation.js"></script>
+<script src="./js/search_index.js"></script>
+<script src="./js/search.js"></script>
+<script src="./js/searcher.js"></script>
+<script src="./js/darkfish.js"></script>
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-attackWithCard">#attackWithCard</a>
+    
+    <li ><a href="#method-i-createDeck">#createDeck</a>
+    
+    <li ><a href="#method-i-drawCard">#drawCard</a>
+    
+    <li ><a href="#method-i-playCard">#playCard</a>
+    
+    <li ><a href="#method-i-startTurn">#startTurn</a>
+    
+    <li ><a href="#method-i-takeDamage">#takeDamage</a>
+    
+    <li ><a href="#method-i-testOutput">#testOutput</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Player">
+  <h1 id="class-Player" class="class">
+    class Player
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-deck" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">deck</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-health" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">health</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-mana" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">mana</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-side" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">side</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(side, brd)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File game.rb, line 2</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> (<span class="ruby-identifier">side</span>, <span class="ruby-identifier">brd</span>)
+        <span class="ruby-ivar">@health</span> = <span class="ruby-value">30</span>
+        <span class="ruby-ivar">@total_mana</span> = <span class="ruby-value">0</span>
+        <span class="ruby-ivar">@remaining_mana</span> = <span class="ruby-value">0</span>
+        <span class="ruby-ivar">@side</span> = <span class="ruby-identifier">side</span>
+        <span class="ruby-ivar">@hand</span> = []
+        <span class="ruby-ivar">@deck</span> = []
+        <span class="ruby-ivar">@board</span> = <span class="ruby-identifier">brd</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-attackWithCard" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">attackWithCard</span><span
+            class="method-args">(playerCard, opponentCard, board)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="attackWithCard-source">
+            <pre><span class="ruby-comment"># File game.rb, line 58</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">attackWithCard</span> (<span class="ruby-identifier">playerCard</span>, <span class="ruby-identifier">opponentCard</span>, <span class="ruby-identifier">board</span>)
+
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-createDeck" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">createDeck</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Temporary function (probably). Seeds the player&#39;s deck with 30 cards,
+and then shuffles the deck. Will most likely end up as a simple shuffle
+method</p>
+          
+          
+
+          
+          <div class="method-source-code" id="createDeck-source">
+            <pre><span class="ruby-comment"># File game.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">createDeck</span>
+        <span class="ruby-value">10</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+                <span class="ruby-ivar">@deck</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">Card</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">5</span>, <span class="ruby-value">5</span>, <span class="ruby-value">5</span>, <span class="ruby-string">&#39;5 cost minion&#39;</span>))
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-value">10</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+                <span class="ruby-ivar">@deck</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">Card</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">2</span>, <span class="ruby-value">2</span>, <span class="ruby-value">2</span>, <span class="ruby-string">&#39;2 cost minion&#39;</span>))
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-value">10</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+                <span class="ruby-ivar">@deck</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">Card</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">1</span>, <span class="ruby-value">1</span>, <span class="ruby-value">1</span>, <span class="ruby-string">&#39;1 cost minion&#39;</span>))
+        <span class="ruby-keyword">end</span>           
+        <span class="ruby-ivar">@deck</span>.<span class="ruby-identifier">shuffle!</span>        
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-drawCard" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">drawCard</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The player pops a card out of the deck and pushes it into his hand</p>
+          
+          
+
+          
+          <div class="method-source-code" id="drawCard-source">
+            <pre><span class="ruby-comment"># File game.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">drawCard</span>
+        <span class="ruby-ivar">@hand</span> = <span class="ruby-ivar">@hand</span>.<span class="ruby-identifier">push</span>(<span class="ruby-ivar">@deck</span>.<span class="ruby-identifier">pop</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-playCard" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">playCard</span><span
+            class="method-args">(card)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>The player adds a card to his side of the board, fails if he does not have
+enough mana.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="playCard-source">
+            <pre><span class="ruby-comment"># File game.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">playCard</span> (<span class="ruby-identifier">card</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">card</span>.<span class="ruby-identifier">cost</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@remaining_mana</span>
+                <span class="ruby-identifier">p</span> <span class="ruby-string">&quot;Not enough mana!&quot;</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">board</span>.<span class="ruby-identifier">addToBoard</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">card</span>)
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-startTurn" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">startTurn</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Turn starts and the player draws a card from the deck, mana is incremented
+by one (so long as his total mana is &lt; 10) and the usable mana of the
+player is refreshed to total mana. Finally, we unlock the player&#39;s
+board so that it may attack</p>
+          
+          
+
+          
+          <div class="method-source-code" id="startTurn-source">
+            <pre><span class="ruby-comment"># File game.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">startTurn</span>
+        <span class="ruby-identifier">drawCard</span>()
+        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@total_mana</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">10</span>
+                <span class="ruby-ivar">@total_mana</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-ivar">@remaining_mana</span> = <span class="ruby-ivar">@total_mana</span>
+        <span class="ruby-ivar">@board</span>.<span class="ruby-identifier">resetBoard</span>(<span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-takeDamage" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">takeDamage</span><span
+            class="method-args">(damage)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="Player.html">Player</a> takes damage equivalent to the attack
+value of the attacking card</p>
+          
+          
+
+          
+          <div class="method-source-code" id="takeDamage-source">
+            <pre><span class="ruby-comment"># File game.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">takeDamage</span> (<span class="ruby-identifier">damage</span>)
+        <span class="ruby-ivar">@health</span> = <span class="ruby-ivar">@health</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">damage</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-testOutput" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">testOutput</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Testing function to see the status of th eplayer</p>
+          
+          
+
+          
+          <div class="method-source-code" id="testOutput-source">
+            <pre><span class="ruby-comment"># File game.rb, line 63</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">testOutput</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@health</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@total_mana</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@remaining_mana</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@side</span>
+        <span class="ruby-identifier">p</span> <span class="ruby-ivar">@hand</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://rdoc.rubyforge.org">RDoc</a> 4.1.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

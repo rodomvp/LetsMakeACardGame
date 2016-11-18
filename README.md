@@ -11,3 +11,15 @@ I'm initially going to write the basic game in ruby and simply play it in the co
 ## How to contribute
 
 Literally anything helps here - if you want to contribute card ideas, game design ideas, art, music, or anything in between just email vrodom1@lsu.edu or comment anywhere on the github
+
+## Dependencies (sort of)
+
+You'll need ruby installed and preferably a good command line (ie: not Windows). Running the game is as simple as:
+
+`ruby game.rb`
+
+If you want to update the documentation you'll also need the `rdoc` gem which can be installed with a simple
+
+`gem install rdoc`
+
+Once you have it, using it is as simple as `rdoc game.rb` and bam! You got documentation ripped straight from the comments

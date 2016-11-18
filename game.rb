@@ -1,26 +1,33 @@
 class Player
-	def initialize (side)
+	def initialize (side, brd)
 		@health = 30
 		@total_mana = 0
 		@remaining_mana = 0
 		@side = side
 		@hand = []
 		@deck = []
+		@board = brd
 	end
 
+	#Player takes damage equivalent to the attack value of the attacking card
 	def takeDamage (damage)
 		@health = @health - damage
 	end
 
-	def startTurn(board)
+	#Turn starts and the player draws a card from the deck, mana is incremented by one (so
+	#long as his total mana is < 10) and the usable mana of the player is refreshed to total mana.
+	#Finally, we unlock the player's board so that it may attack
+	def startTurn
 		drawCard()
 		if @total_mana < 10
 			@total_mana += 1
 		end
 		@remaining_mana = @total_mana
-		board.resetBoard(self)
+		@board.resetBoard(self)
 	end
 
+	#Temporary function (probably). Seeds the player's deck with 30 cards, and then shuffles the deck.
+	#Will most likely end up as a simple shuffle method
 	def createDeck
 		10.times do |f|
 			@deck.push(Card.new(5, 5, 5, '5 cost minion'))
@@ -34,11 +41,13 @@ class Player
 		@deck.shuffle!	
 	end
 
+	#The player pops a card out of the deck and pushes it into his hand
 	def drawCard
 		@hand = @hand.push(@deck.pop)
 	end
 
-	def playCard (card, board)
+	#The player adds a card to his side of the board, fails if he does not have enough mana.
+	def playCard (card)
 		if card.cost > @remaining_mana
 			p "Not enough mana!"
 		else
@@ -46,6 +55,11 @@ class Player
 		end
 	end
 
+	def attackWithCard (playerCard, opponentCard, board)
+
+	end
+
+	#Testing function to see the status of th eplayer
 	def testOutput
 		puts @health
 		puts @total_mana
@@ -143,8 +157,8 @@ class Card
 	attr_accessor :played
 end
 
-player = Player.new(1)
 board = Board.new
+player = Player.new(1, board)
 
 
 player.createDeck
@@ -153,8 +167,8 @@ player.deck.each do |c|
 	c.printCard
 end
 
-player.startTurn(board)
-player.playCard(player.deck.pop, board)
+player.startTurn
+player.playCard(player.deck.pop)
 board.printBoard	
 
 
