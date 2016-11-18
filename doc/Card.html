@@ -75,7 +75,9 @@
     
     <li ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-attack">#attack</a>
+    <li ><a href="#method-i-die">#die</a>
+    
+    <li ><a href="#method-i-played-3F">#played?</a>
     
     <li ><a href="#method-i-printCard">#printCard</a>
     
@@ -113,10 +115,36 @@
       </header>
 
       
+      <div id="attribute-i-attack" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">attack</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
       <div id="attribute-i-cost" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">cost</span><span
             class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-currentHealth" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">currentHealth</span><span
+            class="attribute-access-type">[RW]</span>
         </div>
 
         <div class="method-description">
@@ -181,13 +209,14 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File game.rb, line 116</span>
+            <pre><span class="ruby-comment"># File game.rb, line 150</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> (<span class="ruby-identifier">h</span>, <span class="ruby-identifier">a</span>, <span class="ruby-identifier">c</span>, <span class="ruby-identifier">name</span>)
         <span class="ruby-ivar">@health</span> = <span class="ruby-identifier">h</span>
         <span class="ruby-ivar">@attack</span> = <span class="ruby-identifier">a</span>
         <span class="ruby-ivar">@cost</span> = <span class="ruby-identifier">c</span>
         <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
         <span class="ruby-ivar">@played</span> = <span class="ruby-keyword">false</span>
+        <span class="ruby-ivar">@currentHealth</span> = <span class="ruby-ivar">@health</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -207,11 +236,11 @@
        </header>
 
     
-      <div id="method-i-attack" class="method-detail ">
+      <div id="method-i-die" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">attack</span><span
-            class="method-args">(target)</span>
+          <span class="method-name">die</span><span
+            class="method-args">(board, player)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -220,21 +249,56 @@
 
         <div class="method-description">
           
-          
+          <p>Removes the card from the player&#39;s active board and moves it into the
+graveyard</p>
           
           
 
           
-          <div class="method-source-code" id="attack-source">
-            <pre><span class="ruby-comment"># File game.rb, line 124</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">attack</span> (<span class="ruby-identifier">target</span>)
-        <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@played</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">true</span>)
-                <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;This minion already attacked!&quot;</span>
-        <span class="ruby-keyword">else</span>
-                <span class="ruby-identifier">target</span>.<span class="ruby-identifier">takeDamage</span>(<span class="ruby-identifier">attack</span>)
-                <span class="ruby-keyword">self</span>.<span class="ruby-identifier">takeDamage</span>(<span class="ruby-identifier">target</span>.<span class="ruby-identifier">attack</span>)
-                <span class="ruby-ivar">@played</span> = <span class="ruby-keyword">true</span>
+          <div class="method-source-code" id="die-source">
+            <pre><span class="ruby-comment"># File game.rb, line 165</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">die</span> (<span class="ruby-identifier">board</span>, <span class="ruby-identifier">player</span>)
+        <span class="ruby-ivar">@currentHealth</span> = <span class="ruby-identifier">health</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">side</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+                <span class="ruby-identifier">board</span>.<span class="ruby-identifier">p1Board</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-keyword">self</span>)
+                <span class="ruby-identifier">board</span>.<span class="ruby-identifier">p1GY</span>.<span class="ruby-identifier">push</span>(<span class="ruby-keyword">self</span>)
+        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">side</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
+                <span class="ruby-identifier">board</span>.<span class="ruby-identifier">p2Board</span> <span class="ruby-operator">-</span> [<span class="ruby-keyword">self</span>]
+                <span class="ruby-identifier">board</span>.<span class="ruby-identifier">p2GY</span>.<span class="ruby-identifier">push</span>(<span class="ruby-keyword">self</span>)
         <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-played-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">played?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Simple boolean to see if a card has already taken it&#39;s turn</p>
+          
+          
+
+          
+          <div class="method-source-code" id="played-3F-source">
+            <pre><span class="ruby-comment"># File game.rb, line 160</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">played?</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-ivar">@played</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -259,25 +323,25 @@
 
         <div class="method-description">
           
-          
+          <p>Prints out the card in a simple, easy to read format</p>
           
           
 
           
           <div class="method-source-code" id="printCard-source">
-            <pre><span class="ruby-comment"># File game.rb, line 138</span>
+            <pre><span class="ruby-comment"># File game.rb, line 182</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">printCard</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;+--------- +&quot;</span>
         <span class="ruby-keyword">if</span> <span class="ruby-ivar">@health</span><span class="ruby-operator">/</span><span class="ruby-value">10</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;| hp: #{@health}    |&quot;</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;| hp: #{@currentHealth}    |&quot;</span>
         <span class="ruby-keyword">else</span> 
-                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;| hp: #{@health}   |&quot;</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;| hp: #{@currentHealth}   |&quot;</span>
         <span class="ruby-keyword">end</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;|          |&quot;</span>
         <span class="ruby-keyword">if</span> <span class="ruby-ivar">@attack</span><span class="ruby-operator">/</span><span class="ruby-value">10</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;| atk: #{@health}   |&quot;</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;| atk: #{@attack}   |&quot;</span>
         <span class="ruby-keyword">else</span> 
-                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;| atk: #{@health}  |&quot;</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;| atk: #{@attack}  |&quot;</span>
         <span class="ruby-keyword">end</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;|          |&quot;</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;|          |&quot;</span>
@@ -306,15 +370,15 @@
 
         <div class="method-description">
           
-          
+          <p>The card loses current health equal to the damage of the attacker</p>
           
           
 
           
           <div class="method-source-code" id="takeDamage-source">
-            <pre><span class="ruby-comment"># File game.rb, line 134</span>
+            <pre><span class="ruby-comment"># File game.rb, line 177</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">takeDamage</span> (<span class="ruby-identifier">dmg</span>)
-        <span class="ruby-identifier">health</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">dmg</span>
+        <span class="ruby-ivar">@currentHealth</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">dmg</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

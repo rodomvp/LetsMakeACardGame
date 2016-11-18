@@ -126,9 +126,35 @@
         </div>
       </div>
       
+      <div id="attribute-i-p1GY" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">p1GY</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
       <div id="attribute-i-p2Board" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">p2Board</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-p2GY" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">p2GY</span><span
             class="attribute-access-type">[RW]</span>
         </div>
 
@@ -168,10 +194,12 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File game.rb, line 75</span>
+            <pre><span class="ruby-comment"># File game.rb, line 87</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
         <span class="ruby-ivar">@p1Board</span> = []
         <span class="ruby-ivar">@p2Board</span> = []
+        <span class="ruby-ivar">@p1GY</span> = []
+        <span class="ruby-ivar">@p2GY</span> = []
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -204,13 +232,13 @@
 
         <div class="method-description">
           
-          
+          <p>Adds a card to the board for the specified player</p>
           
           
 
           
           <div class="method-source-code" id="addToBoard-source">
-            <pre><span class="ruby-comment"># File game.rb, line 80</span>
+            <pre><span class="ruby-comment"># File game.rb, line 95</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">addToBoard</span>(<span class="ruby-identifier">player</span>, <span class="ruby-identifier">card</span>)
         <span class="ruby-keyword">if</span> <span class="ruby-identifier">player</span>.<span class="ruby-identifier">side</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
                 <span class="ruby-ivar">@p1Board</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">card</span>)
@@ -241,16 +269,31 @@
 
         <div class="method-description">
           
-          
+          <p>Displays the entire board status: including the 2 active boards of both
+players as well as their respective graveyards</p>
           
           
 
           
           <div class="method-source-code" id="printBoard-source">
-            <pre><span class="ruby-comment"># File game.rb, line 100</span>
+            <pre><span class="ruby-comment"># File game.rb, line 119</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">printBoard</span>
-        <span class="ruby-identifier">p</span> <span class="ruby-ivar">@p1Board</span>
-        <span class="ruby-identifier">p</span> <span class="ruby-ivar">@p2Board</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Player 1&#39;s Board&quot;</span>
+        <span class="ruby-ivar">@p1Board</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">c</span>.<span class="ruby-identifier">printCard</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Player 2&#39;s Board&quot;</span>;
+        <span class="ruby-ivar">@p2Board</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">c</span>.<span class="ruby-identifier">printCard</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Player 1&#39;s GY&quot;</span>
+        <span class="ruby-ivar">@p1GY</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">c</span>.<span class="ruby-identifier">printCard</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Player 2&#39;s GY&quot;</span>;
+        <span class="ruby-ivar">@p2GY</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+                <span class="ruby-identifier">c</span>.<span class="ruby-identifier">printCard</span>
+        <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -275,13 +318,14 @@
 
         <div class="method-description">
           
-          
+          <p>Refreshes the ability to attack for any card on the player&#39;s board.
+Should happen at the start of every turn</p>
           
           
 
           
           <div class="method-source-code" id="resetBoard-source">
-            <pre><span class="ruby-comment"># File game.rb, line 88</span>
+            <pre><span class="ruby-comment"># File game.rb, line 105</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">resetBoard</span> (<span class="ruby-identifier">player</span>)
         <span class="ruby-keyword">if</span>(<span class="ruby-identifier">player</span>.<span class="ruby-identifier">side</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>)
                 <span class="ruby-ivar">@p1Board</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>

@@ -75,7 +75,7 @@
     
     <li ><a href="#method-c-new">::new</a>
     
-    <li ><a href="#method-i-attackWithCard">#attackWithCard</a>
+    <li ><a href="#method-i-attackCardWithCard">#attackCardWithCard</a>
     
     <li ><a href="#method-i-createDeck">#createDeck</a>
     
@@ -205,7 +205,7 @@
             <pre><span class="ruby-comment"># File game.rb, line 2</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> (<span class="ruby-identifier">side</span>, <span class="ruby-identifier">brd</span>)
         <span class="ruby-ivar">@health</span> = <span class="ruby-value">30</span>
-        <span class="ruby-ivar">@total_mana</span> = <span class="ruby-value">0</span>
+        <span class="ruby-ivar">@total_mana</span> = <span class="ruby-value">10</span>
         <span class="ruby-ivar">@remaining_mana</span> = <span class="ruby-value">0</span>
         <span class="ruby-ivar">@side</span> = <span class="ruby-identifier">side</span>
         <span class="ruby-ivar">@hand</span> = []
@@ -230,11 +230,11 @@
        </header>
 
     
-      <div id="method-i-attackWithCard" class="method-detail ">
+      <div id="method-i-attackCardWithCard" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">attackWithCard</span><span
-            class="method-args">(playerCard, opponentCard, board)</span>
+          <span class="method-name">attackCardWithCard</span><span
+            class="method-args">(playerCard, opponentCard, opponent)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -248,10 +248,22 @@
           
 
           
-          <div class="method-source-code" id="attackWithCard-source">
+          <div class="method-source-code" id="attackCardWithCard-source">
             <pre><span class="ruby-comment"># File game.rb, line 58</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">attackWithCard</span> (<span class="ruby-identifier">playerCard</span>, <span class="ruby-identifier">opponentCard</span>, <span class="ruby-identifier">board</span>)
-
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">attackCardWithCard</span> (<span class="ruby-identifier">playerCard</span>, <span class="ruby-identifier">opponentCard</span>, <span class="ruby-identifier">opponent</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">playerCard</span>.<span class="ruby-identifier">played?</span>
+                <span class="ruby-identifier">p</span> <span class="ruby-string">&quot;This card already attacked!&quot;</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">opponentCard</span>.<span class="ruby-identifier">takeDamage</span>(<span class="ruby-identifier">playerCard</span>.<span class="ruby-identifier">attack</span>)
+                <span class="ruby-identifier">playerCard</span>.<span class="ruby-identifier">takeDamage</span>(<span class="ruby-identifier">opponentCard</span>.<span class="ruby-identifier">attack</span>)
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">opponentCard</span>.<span class="ruby-identifier">currentHealth</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+                        <span class="ruby-identifier">opponentCard</span>.<span class="ruby-identifier">die</span>(<span class="ruby-ivar">@board</span>, <span class="ruby-identifier">opponent</span>)
+                <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">playerCard</span>.<span class="ruby-identifier">currentHealth</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+                        <span class="ruby-identifier">playerCard</span>.<span class="ruby-identifier">die</span>(<span class="ruby-ivar">@board</span>, <span class="ruby-keyword">self</span>)
+                <span class="ruby-keyword">end</span>
+                <span class="ruby-identifier">playerCard</span>.<span class="ruby-identifier">played</span> = <span class="ruby-keyword">true</span>
+        <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -365,7 +377,7 @@ enough mana.</p>
         <span class="ruby-keyword">if</span> <span class="ruby-identifier">card</span>.<span class="ruby-identifier">cost</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@remaining_mana</span>
                 <span class="ruby-identifier">p</span> <span class="ruby-string">&quot;Not enough mana!&quot;</span>
         <span class="ruby-keyword">else</span>
-                <span class="ruby-identifier">board</span>.<span class="ruby-identifier">addToBoard</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">card</span>)
+                <span class="ruby-ivar">@board</span>.<span class="ruby-identifier">addToBoard</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">card</span>)
         <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -472,7 +484,7 @@ value of the attacking card</p>
 
           
           <div class="method-source-code" id="testOutput-source">
-            <pre><span class="ruby-comment"># File game.rb, line 63</span>
+            <pre><span class="ruby-comment"># File game.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">testOutput</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@health</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@total_mana</span>

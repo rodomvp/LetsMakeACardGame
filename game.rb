@@ -1,7 +1,7 @@
 class Player
 	def initialize (side, brd)
 		@health = 30
-		@total_mana = 0
+		@total_mana = 10
 		@remaining_mana = 0
 		@side = side
 		@hand = []
@@ -51,12 +51,24 @@ class Player
 		if card.cost > @remaining_mana
 			p "Not enough mana!"
 		else
-			board.addToBoard(self, card)
+			@board.addToBoard(self, card)
 		end
 	end
 
-	def attackWithCard (playerCard, opponentCard, board)
-
+	def attackCardWithCard (playerCard, opponentCard, opponent)
+		if playerCard.played?
+			p "This card already attacked!"
+		else
+			opponentCard.takeDamage(playerCard.attack)
+			playerCard.takeDamage(opponentCard.attack)
+			if opponentCard.currentHealth <= 0
+				opponentCard.die(@board, opponent)
+			end
+			if playerCard.currentHealth <= 0
+				playerCard.die(@board, self)
+			end
+			playerCard.played = true
+		end
 	end
 
 	#Testing function to see the status of th eplayer
@@ -75,8 +87,11 @@ class Board
 	def initialize
 		@p1Board = []
 		@p2Board = []
+		@p1GY = []
+		@p2GY = []
 	end
 
+	#Adds a card to the board for the specified player
 	def addToBoard(player, card)
 		if player.side == 1
 			@p1Board.push(card)
@@ -85,6 +100,8 @@ class Board
 		end
 	end
 
+	#Refreshes the ability to attack for any card on the player's board. Should happen at
+	#the start of every turn
 	def resetBoard (player)
 		if(player.side == 1)
 			@p1Board.each do |c|
@@ -97,17 +114,34 @@ class Board
 		end
 	end
 
+	#Displays the entire board status: including the 2 active boards of both players as well
+	#as their respective graveyards
 	def printBoard
-		p @p1Board
-		p @p2Board
+		puts "Player 1's Board"
+		@p1Board.each do |c|
+			c.printCard
+		end
+		puts "Player 2's Board";
+		@p2Board.each do |c|
+			c.printCard
+		end
+		puts "Player 1's GY"
+		@p1GY.each do |c|
+			c.printCard
+		end
+		puts "Player 2's GY";
+		@p2GY.each do |c|
+			c.printCard
+		end
 	end
 
-	attr_accessor :p1Board, :p2Board
+	attr_accessor :p1Board, :p2Board, :p1GY, :p2GY
 end
 
 
 class Card
 	@health = 0
+	@currentHealth = 0
 	@attack = 0
 	@cost = 0
 	@played
@@ -119,34 +153,44 @@ class Card
 		@cost = c
 		@name = name
 		@played = false
+		@currentHealth = @health
 	end
 
-	def attack (target)
-		if (@played == true)
-			puts "This minion already attacked!"
-		else
-			target.takeDamage(attack)
-			self.takeDamage(target.attack)
-			@played = true
+	#Simple boolean to see if a card has already taken it's turn
+	def played?
+		return @played
+	end
+
+	#Removes the card from the player's active board and moves it into the graveyard
+	def die (board, player)
+		@currentHealth = health
+		if player.side == 1
+			board.p1Board.delete(self)
+			board.p1GY.push(self)
+		elsif player.side == 2
+			board.p2Board - [self]
+			board.p2GY.push(self)
 		end
 	end
 
+	#The card loses current health equal to the damage of the attacker
 	def takeDamage (dmg)
-		health -= dmg
+		@currentHealth -= dmg
 	end
 
+	#Prints out the card in a simple, easy to read format
 	def printCard
 		puts "+--------- +"
 		if @health/10 == 0
-			puts "| hp: #{@health}    |"
+			puts "| hp: #{@currentHealth}    |"
 		else 
-			puts "| hp: #{@health}   |"
+			puts "| hp: #{@currentHealth}   |"
 		end
 		puts "|          |"
 		if @attack/10 == 0
-			puts "| atk: #{@health}   |"
+			puts "| atk: #{@attack}   |"
 		else 
-			puts "| atk: #{@health}  |"
+			puts "| atk: #{@attack}  |"
 		end
 		puts "|          |"
 		puts "|          |"
@@ -154,21 +198,31 @@ class Card
 	end
 
 	attr_reader :health, :attack, :cost
-	attr_accessor :played
+	attr_accessor :played, :currentHealth
 end
 
 board = Board.new
-player = Player.new(1, board)
+player1 = Player.new(1, board)
+player2 = Player.new(2, board)
 
 
-player.createDeck
+player1.createDeck
+player2.createDeck
 
-player.deck.each do |c|
+player1.deck.each do |c|
 	c.printCard
 end
 
-player.startTurn
-player.playCard(player.deck.pop)
+player1.startTurn
+player1.playCard(player1.deck.pop)
+player1.playCard(player1.deck.pop)
+player1.playCard(player1.deck.pop)
+player2.startTurn
+player2.playCard(player2.deck.pop)
+player2.playCard(player2.deck.pop)
+player2.playCard(player2.deck.pop)
+board.printBoard
+player1.attackCardWithCard(board.p1Board.first, board.p2Board.first, player2)
 board.printBoard	
 
 
